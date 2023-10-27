@@ -165,104 +165,149 @@ export default function Solat({ navigation, route }) {
                 justifyContent: 'space-around'
             }}>
                 <MySolat done={done.SUBUH} judul="SUBUH" desc="05.00 - 06.00 WIB" onPress={() => {
-                    launchCamera({
-                        includeBase64: true,
-                        quality: 1,
-                        mediaType: "photo",
-                        maxWidth: 200,
-                        maxHeight: 200
-                    }, response => {
+
+                    if (done.SUBUH > 0) {
+                        Alert.alert(MYAPP, 'you have prayed !')
+                    } else {
+                        launchCamera({
+                            includeBase64: true,
+                            quality: 1,
+                            mediaType: "photo",
+                            maxWidth: 200,
+                            maxHeight: 200
+                        }, response => {
+                            if (!response.didCancel) {
+
+                                axios.post(apiURL + 'solat_add', {
+                                    ...kirim,
+                                    nama_solat: 'SUBUH',
+                                    foto_solat: `data:${response.type};base64, ${response.base64}`,
+                                }).then(res => {
+                                    console.log(res.data);
+                                    Alert.alert(MYAPP, 'Prayer SUBUH successfully !')
+                                    __getTransaction();
+                                })
+                            }
+                        });
+                    }
 
 
-                        axios.post(apiURL + 'solat_add', {
-                            ...kirim,
-                            nama_solat: 'SUBUH',
-                            foto_solat: `data:${response.type};base64, ${response.base64}`,
-                        }).then(res => {
-                            console.log(res.data);
-                            __getTransaction();
-                        })
-                    });
                 }} />
                 <MySolat done={done.ZUHUR} judul="ZUHUR" desc="12.30 - 13.15 WIB" onPress={() => {
-                    launchCamera({
-                        includeBase64: true,
-                        quality: 1,
-                        mediaType: "photo",
-                        maxWidth: 200,
-                        maxHeight: 200
-                    }, response => {
+
+                    if (done.ZUHUR > 0) {
+                        Alert.alert(MYAPP, 'you have prayed !')
+                    } else {
+                        launchCamera({
+                            includeBase64: true,
+                            quality: 1,
+                            mediaType: "photo",
+                            maxWidth: 200,
+                            maxHeight: 200
+                        }, response => {
 
 
-                        axios.post(apiURL + 'solat_add', {
-                            ...kirim,
-                            nama_solat: 'ZUHUR',
-                            foto_solat: `data:${response.type};base64, ${response.base64}`,
-                        }).then(res => {
-                            console.log(res.data);
-                            __getTransaction();
-                        })
-                    });
+
+                            if (!response.didCancel) {
+                                axios.post(apiURL + 'solat_add', {
+                                    ...kirim,
+                                    nama_solat: 'ZUHUR',
+                                    foto_solat: `data:${response.type};base64, ${response.base64}`,
+                                }).then(res => {
+                                    console.log(res.data);
+                                    Alert.alert(MYAPP, 'Prayer ZUHUR successfully !')
+                                    __getTransaction();
+                                })
+                            }
+
+
+                        });
+                    }
+
+
                 }} />
                 <MySolat done={done.ASHAR} judul="ASHAR" desc="15.30 - 16.00 WIB" onPress={() => {
-                    launchCamera({
-                        includeBase64: true,
-                        quality: 1,
-                        mediaType: "photo",
-                        maxWidth: 200,
-                        maxHeight: 200
-                    }, response => {
+                    if (done.ASHAR > 0) {
+                        Alert.alert(MYAPP, 'you have prayed !')
+                    } else {
+                        launchCamera({
+                            includeBase64: true,
+                            quality: 1,
+                            mediaType: "photo",
+                            maxWidth: 200,
+                            maxHeight: 200
+                        }, response => {
+
+                            if (!response.didCancel) {
+                                axios.post(apiURL + 'solat_add', {
+                                    ...kirim,
+                                    nama_solat: 'ASHAR',
+                                    foto_solat: `data:${response.type};base64, ${response.base64}`,
+                                }).then(res => {
+                                    console.log(res.data);
+                                    Alert.alert(MYAPP, 'Prayer ASHAR successfully !')
+                                    __getTransaction();
+                                })
+                            }
+                        });
+                    }
 
 
-                        axios.post(apiURL + 'solat_add', {
-                            ...kirim,
-                            nama_solat: 'ASHAR',
-                            foto_solat: `data:${response.type};base64, ${response.base64}`,
-                        }).then(res => {
-                            console.log(res.data);
-                            __getTransaction();
-                        })
-                    });
                 }} />
                 <MySolat done={done.MAGHRIB} judul="MAGHRIB" desc="18.15 - 18.45 WIB" onPress={() => {
-                    launchCamera({
-                        includeBase64: true,
-                        quality: 1,
-                        mediaType: "photo",
-                        maxWidth: 200,
-                        maxHeight: 200
-                    }, response => {
 
+                    if (done.MAGHRIB > 0) {
+                        Alert.alert(MYAPP, 'you have prayed !')
+                    } else {
+                        launchCamera({
+                            includeBase64: true,
+                            quality: 1,
+                            mediaType: "photo",
+                            maxWidth: 200,
+                            maxHeight: 200
+                        }, response => {
 
-                        axios.post(apiURL + 'solat_add', {
-                            ...kirim,
-                            nama_solat: 'MAGHRIB',
-                            foto_solat: `data:${response.type};base64, ${response.base64}`,
-                        }).then(res => {
-                            console.log(res.data)
-                            __getTransaction();
-                        })
-                    });
+                            if (!response.didCancel) {
+                                axios.post(apiURL + 'solat_add', {
+                                    ...kirim,
+                                    nama_solat: 'MAGHRIB',
+                                    foto_solat: `data:${response.type};base64, ${response.base64}`,
+                                }).then(res => {
+                                    console.log(res.data)
+                                    Alert.alert(MYAPP, 'Prayer MAGHRIB successfully !')
+                                    __getTransaction();
+                                })
+                            }
+                        });
+                    }
+
                 }} />
                 <MySolat done={done.ISYA} judul="ISYA" desc="19.30 - 21.10 WIB" onPress={() => {
-                    launchCamera({
-                        includeBase64: true,
-                        quality: 1,
-                        mediaType: "photo",
-                        maxWidth: 200,
-                        maxHeight: 200
-                    }, response => {
 
+                    if (done.ISYA > 0) {
+                        Alert.alert(MYAPP, 'you have prayed !')
+                    } else {
+                        launchCamera({
+                            includeBase64: true,
+                            quality: 1,
+                            mediaType: "photo",
+                            maxWidth: 200,
+                            maxHeight: 200
+                        }, response => {
 
-                        axios.post(apiURL + 'solat_add', {
-                            ...kirim,
-                            nama_solat: 'ISYA',
-                            foto_solat: `data:${response.type};base64, ${response.base64}`,
-                        }).then(res => {
-                            console.log(res.data);
-                            __getTransaction();
-                        })
-                    });
+                            if (!response.didCancel) {
+                                axios.post(apiURL + 'solat_add', {
+                                    ...kirim,
+                                    nama_solat: 'ISYA',
+                                    foto_solat: `data:${response.type};base64, ${response.base64}`,
+                                }).then(res => {
+                                    console.log(res.data);
+                                    Alert.alert(MYAPP, 'Prayer ISYA successfully !')
+                                    __getTransaction();
+                                })
+                            }
+                        });
+                    }
                 }} />
             </View>
 

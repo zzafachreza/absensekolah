@@ -87,7 +87,11 @@ export default function Pengaturan({ navigation }) {
 
                 <MYTombol icon="person" name="Profile" onPress={() => navigation.navigate('Account')} />
                 <MYTombol icon="create" name="Change Profile" onPress={() => navigation.navigate('AccountEdit', user)} />
-                <MYTombol icon="time" name="History" onPress={() => navigation.navigate('AccountEdit')} />
+                <MYTombol icon="time" name="History" onPress={() => Alert.alert(MYAPP, 'Which history will you choose? ', [
+                    { text: 'Cancel' },
+                    { text: 'Prayer', onPress: () => navigation.navigate('SolatData', user) },
+                    { text: 'Attendance', onPress: () => navigation.navigate('KursusData', user) },
+                ])} />
 
                 <MYTombol icon="home" name="Class" onPress={() => navigation.navigate('MasterKelas', {
                     judul: 'Class'
