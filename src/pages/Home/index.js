@@ -64,7 +64,7 @@ export default function Home({ navigation, route }) {
 
     });
 
-    await axios.post(apiURL + 'menu').then(res => {
+    await axios.post(apiURL + 'info').then(res => {
 
       console.log(res.data);
       setData(res.data);
@@ -78,6 +78,44 @@ export default function Home({ navigation, route }) {
       _getTransaction();
     }
   }, [isFocus]);
+
+  const __renderItem = ({ item }) => {
+    return (
+
+      <View style={{
+        padding: 10,
+        // borderWidth: 1,
+        elevation: 2,
+        padding: 20,
+        marginVertical: 10,
+        borderRadius: 5,
+        flexDirection: 'row',
+        alignItems: 'center'
+      }}>
+        <Icon type='ionicon' name='information' size={50} color={colors.secondary} />
+        <View style={{
+          left: 10,
+          flex: 1,
+        }}>
+          <Text style={{
+
+            fontSize: windowWidth / 25,
+            fontFamily: fonts.primary[600],
+            color: colors.primary,
+
+          }}>{item.judul}</Text>
+          <Text style={{
+
+            fontSize: windowWidth / 30,
+            fontFamily: fonts.primary[400],
+            color: colors.primary,
+            // textAlign: 'center'
+          }}>{item.keterangan}</Text>
+        </View>
+      </View>
+
+    )
+  }
 
 
   return (
@@ -111,69 +149,8 @@ export default function Home({ navigation, route }) {
           backgroundColor: colors.primary
         }}></View>
 
+        <FlatList data={data} renderItem={__renderItem} />
 
-        <View style={{
-          padding: 10,
-          // borderWidth: 1,
-          elevation: 2,
-          padding: 20,
-          marginVertical: 10,
-          borderRadius: 5,
-          flexDirection: 'row',
-          alignItems: 'center'
-        }}>
-          <Icon type='ionicon' name='information' size={50} color={colors.secondary} />
-          <Text style={{
-            left: 10,
-            flex: 1,
-            fontSize: windowWidth / 22,
-            fontFamily: fonts.primary[600],
-            color: colors.primary,
-            textAlign: 'center'
-          }}>Jadwal Ujian Akhir Semester 2 TP 2023/2024</Text>
-        </View>
-
-        <View style={{
-          padding: 10,
-          // borderWidth: 1,
-          elevation: 2,
-          padding: 20,
-          marginVertical: 10,
-          borderRadius: 5,
-          flexDirection: 'row',
-          alignItems: 'center'
-        }}>
-          <Icon type='ionicon' name='information' size={50} color={colors.secondary} />
-          <Text style={{
-            left: 10,
-            flex: 1,
-            fontSize: windowWidth / 22,
-            fontFamily: fonts.primary[600],
-            color: colors.primary,
-            textAlign: 'center'
-          }}>Jadwal UKK Kelas 12 TP 2023/2024</Text>
-        </View>
-
-        <View style={{
-          padding: 10,
-          // borderWidth: 1,
-          elevation: 2,
-          padding: 20,
-          marginVertical: 10,
-          borderRadius: 5,
-          flexDirection: 'row',
-          alignItems: 'center'
-        }}>
-          <Icon type='ionicon' name='information' size={50} color={colors.secondary} />
-          <Text style={{
-            left: 10,
-            flex: 1,
-            fontSize: windowWidth / 22,
-            fontFamily: fonts.primary[600],
-            color: colors.primary,
-            textAlign: 'center'
-          }}>Nama Siswa Penerima Beasiswa Tahun 2023</Text>
-        </View>
 
       </View>
 
@@ -203,7 +180,7 @@ export default function Home({ navigation, route }) {
 
         </TouchableOpacity>
 
-        <TouchableOpacity style={{
+        <TouchableOpacity onPress={() => navigation.navigate('Solat')} style={{
           padding: 10,
         }}>
           <Icon type='ionicon' name='time' color={colors.white} size={20} />
@@ -216,7 +193,7 @@ export default function Home({ navigation, route }) {
 
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('APPLaporan')} style={{
+        <TouchableOpacity onPress={() => navigation.navigate('Kursus')} style={{
           padding: 10,
         }}>
           <Icon type='ionicon' name='create' color={colors.white} size={20} />

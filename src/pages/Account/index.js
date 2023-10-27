@@ -111,7 +111,7 @@ export default function ({ navigation, route }) {
 
             {open &&
                 <>
-                    <MyHeader judul="PROFILE" />
+                    <MyHeader onPress={() => navigation.goBack()} judul="PROFILE" />
 
                     <View style={{
                         backgroundColor: colors.white,
@@ -119,9 +119,34 @@ export default function ({ navigation, route }) {
                     }}>
 
                         <View style={{ padding: 10, }}>
+                            <View style={{
+                                width: 81,
+                                height: 81,
+                                alignSelf: 'center',
+                                borderWidth: 3,
+                                borderRadius: 40,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+
+                            }}>
+                                <Image source={{
+                                    uri: user.foto_user
+                                }} style={{
+                                    width: 80,
+                                    height: 80,
+                                    borderRadius: 40,
+                                }} />
+                            </View>
+                            <MyList label="Login as" value={user.tipe} />
                             <MyList label="Name" value={user.nama_lengkap} />
                             <MyList label={user.tipe == 'Teacher' ? 'NIK' : 'NISN'} value={user.username} />
+
+                            <MyList label="Date" value={moment(user.tanggal_lahir).format('DD MMMM YYYY')} />
+                            <MyList label="Gender" value={user.jenis_kelamin} />
+
                             <MyList label="Email" value={user.email} />
+                            <MyList label={user.tipe == 'Teacher' ? 'Course' : 'Class'} value={user.tipe == 'Teacher' ? user.nama_kursus : user.nama_kelas} />
+
 
 
 

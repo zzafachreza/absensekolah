@@ -16,8 +16,8 @@ export default function MyCalendar({
   styleInput,
   placeholder,
   label2,
-  iconColor = colors.black,
-  textColor = colors.black,
+  iconColor = colors.primary,
+  textColor = colors.primary,
   styleLabel,
   colorIcon = colors.primary,
   data = [],
@@ -49,7 +49,7 @@ export default function MyCalendar({
         marginTop: 5,
         borderWidth: 1,
         fontFamily: fonts.secondary[600],
-        borderColor: colors.border,
+        borderColor: colors.primary,
       }}>
         <DatePicker
 

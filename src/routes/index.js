@@ -21,6 +21,16 @@ import {
   Register1,
   Register2,
   Pengaturan,
+  GetStarted,
+  MasterKelas,
+  MasterKursus,
+  MasterInfo,
+  Solat,
+  SolatAdd,
+  SolatData,
+  Kursus,
+  KursusAdd,
+  KursusData,
 
 } from '../pages';
 import { colors } from '../utils';
@@ -58,6 +68,22 @@ export default function Router() {
       <Stack.Screen name="Register2" component={Register2} options={{ headerShown: false }} />
       <Stack.Screen name="Pengaturan" component={Pengaturan} options={{ headerShown: false }} />
 
+      <Stack.Screen name="GetStarted" component={GetStarted} options={{ headerShown: false }} />
+      <Stack.Screen name="MasterKelas" component={MasterKelas} options={{ headerShown: false }} />
+      <Stack.Screen name="MasterKursus" component={MasterKursus} options={{ headerShown: false }} />
+      <Stack.Screen name="MasterInfo" component={MasterInfo} options={{ headerShown: false }} />
+
+      <Stack.Screen name="Solat" component={Solat} options={{ headerShown: false }} />
+      <Stack.Screen name="SolatAdd" component={SolatAdd} options={{ headerShown: false }} />
+      <Stack.Screen name="SolatData" component={SolatData} options={{ headerShown: false }} />
+
+      <Stack.Screen name="Kursus" component={Kursus} options={{ headerShown: false }} />
+      <Stack.Screen name="KursusAdd" component={KursusAdd} options={{ headerShown: false }} />
+      <Stack.Screen name="KursusData" component={KursusData} options={{ headerShown: false }} />
+
+
+
+
 
 
 
@@ -91,7 +117,7 @@ export default function Router() {
         name="AccountEdit"
         component={AccountEdit}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitle: 'Edit Profile',
           headerStyle: {
             backgroundColor: colors.white,

@@ -24,12 +24,12 @@ export default function Splash({ navigation }) {
     setTimeout(() => {
       getData('user').then(res => {
         if (!res) {
-          // navigation.replace('Login')
+          navigation.replace('GetStarted')
         } else {
           navigation.replace('Home')
         }
       })
-    }, 1200)
+    }, 1000)
   }, [])
 
   return (
@@ -54,21 +54,12 @@ export default function Splash({ navigation }) {
 
       <View style={{
         flex: 1,
-        // justifyContent: 'center',
+        justifyContent: 'center',
         padding: 20,
       }}>
 
-        <Text style={{
-          fontFamily: fonts.secondary[800],
-          color: colors.primary,
-          fontSize: 20,
-          textAlign: 'center',
-          marginBottom: 20,
-        }}>Register As</Text>
 
-        <MyButton title="Teacher" onPress={() => navigation.navigate('Register1')} />
-        <MyGap jarak={30} />
-        <MyButton title="Student" onPress={() => navigation.navigate('Register2')} />
+        <ActivityIndicator size="large" color={colors.primary} />
 
       </View>
       <ImageBackground source={require('../../assets/bottom.png')} style={{
@@ -80,21 +71,7 @@ export default function Splash({ navigation }) {
         justifyContent: 'flex-end',
         alignItems: 'flex-end'
       }}>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{
-          borderWidth: 1,
-          width: 100,
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: 10,
-          borderRadius: 10,
-          borderColor: colors.white
-        }}>
-          <Text style={{
-            fontFamily: fonts.secondary[600],
-            color: colors.white,
-            fontSize: 15,
-          }}>Next</Text>
-        </TouchableOpacity>
+
       </ImageBackground>
     </SafeAreaView>
   );
