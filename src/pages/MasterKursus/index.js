@@ -28,6 +28,7 @@ export default function ({ navigation, route }) {
     const [open, setOpen] = useState(false);
     const [kirim, setKirim] = useState({
         tipe: 'ADD',
+        kode_kursus: '',
         nama_kursus: ''
     });
 
@@ -59,6 +60,14 @@ export default function ({ navigation, route }) {
                 <View style={{
                     flex: 1,
                 }}>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 12
+                    }}>Course Code</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[400],
+                        fontSize: 12
+                    }}>{item.kode_kursus}</Text>
                     <Text style={{
                         fontFamily: fonts.secondary[600],
                         fontSize: 12
@@ -147,7 +156,7 @@ export default function ({ navigation, route }) {
                     setOpen(!open);
                     setKirim({
                         tipe: 'ADD',
-                        kode_produk: '',
+                        kode_kursus: '',
                         nama_kursus: ''
                     })
                 }}>
@@ -165,7 +174,12 @@ export default function ({ navigation, route }) {
                         justifyContent: 'center'
                     }}>
                         <ScrollView>
-
+                            <MyInput label="Course Code" onChangeText={x => {
+                                setKirim({
+                                    ...kirim,
+                                    kode_kursus: x
+                                })
+                            }} value={kirim.kode_kursus} iconname="create" />
                             <MyGap jarak={10} />
                             <MyInput label="Course Name" onChangeText={x => {
                                 setKirim({
