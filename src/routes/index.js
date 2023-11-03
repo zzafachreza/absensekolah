@@ -31,6 +31,9 @@ import {
   Kursus,
   KursusAdd,
   KursusData,
+  MasterUser,
+  InfoDetail,
+  HistoryDetail,
 
 } from '../pages';
 import { colors } from '../utils';
@@ -80,6 +83,10 @@ export default function Router() {
       <Stack.Screen name="Kursus" component={Kursus} options={{ headerShown: false }} />
       <Stack.Screen name="KursusAdd" component={KursusAdd} options={{ headerShown: false }} />
       <Stack.Screen name="KursusData" component={KursusData} options={{ headerShown: false }} />
+
+      <Stack.Screen name="MasterUser" component={MasterUser} options={{ headerShown: false }} />
+      <Stack.Screen name="InfoDetail" component={InfoDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="HistoryDetail" component={HistoryDetail} options={{ headerShown: false }} />
 
 
 

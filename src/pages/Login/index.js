@@ -17,7 +17,15 @@ export default function Login({ navigation }) {
   const [loading, setLoading] = useState(false);
 
 
+  const [company, setCompany] = useState({});
 
+  useEffect(() => {
+
+    axios.post(apiURL + 'company').then(res => {
+      setCompany(res.data.data);
+
+    })
+  }, [])
 
 
 
@@ -110,6 +118,17 @@ export default function Login({ navigation }) {
             iconname="lock-closed-outline"
             placeholder="Masukan kata sandi"
           />
+          <TouchableOpacity onPress={() => {
+            Linking.openURL('https://wa.me/' + company.tlp + '?text=Forgot password for nisn/nik/email : ')
+          }}>
+            <Text style={{
+              fontFamily: fonts.secondary[600],
+              fontSize: 15,
+              marginVertical: 10,
+              color: colors.primary,
+              textAlign: 'right'
+            }}>Forgot Password ?</Text>
+          </TouchableOpacity>
 
           <MyGap jarak={20} />
           {!loading &&
@@ -117,16 +136,26 @@ export default function Login({ navigation }) {
 
 
 
-            <MyButton
-              onPress={masuk}
-              title="Masuk"
-              colorText={colors.white}
-              warna={colors.primary}
+            <>
+              <MyButton
+                onPress={masuk}
+                title="Masuk"
+                colorText={colors.white}
+                warna={colors.primary}
 
-              Icons="log-in-outline"
-            />
+                Icons="log-in-outline"
+              />
 
-
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text style={{
+                  fontFamily: fonts.secondary[600],
+                  fontSize: 15,
+                  marginVertical: 10,
+                  color: colors.primary,
+                  textAlign: 'center'
+                }}>Don’t have an account ? Register</Text>
+              </TouchableOpacity>
+            </>
           }
 
         </View>

@@ -26,6 +26,9 @@ import SolatData from './SolatData';
 import Kursus from './Kursus';
 import KursusAdd from './KursusAdd';
 import KursusData from './KursusData';
+import MasterUser from './MasterUser';
+import InfoDetail from './InfoDetail';
+import HistoryDetail from './HistoryDetail';
 
 // new
 
@@ -62,6 +65,9 @@ export {
   SolatData,
   Kursus,
   KursusAdd,
-  KursusData
+  KursusData,
+  MasterUser,
+  InfoDetail,
+  HistoryDetail
 
 };

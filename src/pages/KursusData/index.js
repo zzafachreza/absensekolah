@@ -22,7 +22,8 @@ export default function ({ navigation, route }) {
         getData('user').then(uu => {
             setUser(uu);
             axios.post(apiURL + 'hadir_riwayat', {
-                fid_user: uu.id
+                fid_user: uu.id,
+                tipe: uu.tipe
             }).then(res => {
                 console.log(res.data);
                 setData(res.data)
@@ -68,25 +69,40 @@ export default function ({ navigation, route }) {
                             borderBottomColor: colors.primary
                         }} />
                     </>}
-                <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
-                    <View style={{
-                        flex: 1,
-                    }}>
-                        <Text style={{ fontFamily: fonts.secondary[800], fontSize: 14, color: colors.primary, flex: 1 }}>
-                            {item.kode_kursus}
+                <TouchableWithoutFeedback onPress={() => {
+                    axios.post(apiURL + 'get_hadir', {
+                        id: item.id
+                    }).then(ss => {
+                        console.log(ss.data);
+                        navigation.navigate('HistoryDetail', ss.data)
+                    })
+                }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
+                        <View style={{
+                            flex: 1,
+                        }}>
+                            <Text style={{ fontFamily: fonts.secondary[800], fontSize: 14, color: colors.primary, flex: 1 }}>
+                                {item.kode_kursus}
+                            </Text>
+                            <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
+                                {item.nama_kursus}{'\n'}
+                                {moment(item.tanggal_kursus).format('dddd, DD MMMM YYYY')}{'\n'}
+                                {item.jam_kursus}{'\n'}
+                            </Text>
+
+                        </View>
+                        <Text style={{ fontFamily: fonts.secondary[800], textAlign: 'center', fontSize: 14, color: colors.primary, flex: 1 }}>
+                            {item.jam}{'\n'}<Text style={{
+                                color: colors.black
+                            }}>{item.nama_lengkap}</Text>
                         </Text>
-                        <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
-                            {item.nama_kursus}
-                        </Text>
+                        <Icon type='ionicon'
+                            name='checkmark-circle'
+                            size={20}
+                            color={colors.primary} />
                     </View>
-                    <Text style={{ fontFamily: fonts.secondary[800], fontSize: 14, color: colors.primary, flex: 1 }}>
-                        {item.jam}
-                    </Text>
-                    <Icon type='ionicon'
-                        name='checkmark-circle'
-                        size={20}
-                        color={colors.primary} />
-                </View>
+                </TouchableWithoutFeedback>
+
 
             </View>
         )

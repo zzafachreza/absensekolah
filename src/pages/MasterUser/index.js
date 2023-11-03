@@ -28,10 +28,10 @@ export default function ({ navigation, route }) {
     const [open, setOpen] = useState(false);
     const [kirim, setKirim] = useState({
         tipe: 'ADD',
-        judul: ''
+        username: ''
     });
 
-    const modul = 'info';
+    const modul = 'user';
 
     const [data, setData] = useState([]);
 
@@ -62,19 +62,38 @@ export default function ({ navigation, route }) {
                     <Text style={{
                         fontFamily: fonts.secondary[600],
                         fontSize: 12
-                    }}>Title</Text>
+                    }}>NISN / NIK</Text>
                     <Text style={{
                         fontFamily: fonts.secondary[400],
                         fontSize: 12
-                    }}>{item.judul}</Text>
+                    }}>{item.username}</Text>
                     <Text style={{
+                        marginTop: 5,
                         fontFamily: fonts.secondary[600],
                         fontSize: 12
-                    }}>Description</Text>
+                    }}>Name</Text>
                     <Text style={{
                         fontFamily: fonts.secondary[400],
                         fontSize: 12
-                    }}>{item.keterangan}</Text>
+                    }}>{item.nama_lengkap}</Text>
+                    <Text style={{
+                        marginTop: 5,
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 12
+                    }}>Email</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[400],
+                        fontSize: 12
+                    }}>{item.email}</Text>
+                    <Text style={{
+                        marginTop: 5,
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 12
+                    }}>User Type</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[400],
+                        fontSize: 12
+                    }}>{item.tipe}</Text>
                 </View>
                 <View style={{
                     flexDirection: 'row',
@@ -84,8 +103,8 @@ export default function ({ navigation, route }) {
                         setKirim({
                             tipe: 'UPDATE',
                             id: item.id,
-                            judul: item.judul,
-                            keterangan: item.keterangan
+                            username: item.username,
+                            email: item.email
                         });
                         setOpen(true);
                     }} style={{
@@ -134,18 +153,14 @@ export default function ({ navigation, route }) {
                     fontFamily: fonts.secondary[800],
                     fontSize: 18,
                     color: colors.primary,
-                }}>{route.params.judul}</Text>
+                }}>{route.params.username}</Text>
             </View>
             <View style={{
                 flex: 1,
             }}>
                 <FlatList data={data} renderItem={__renderItem} />
             </View>
-            <View>
-                <MyButton title="Add" onPress={() => {
-                    setOpen(true);
-                }} />
-            </View>
+
 
             {/* modal */}
             <Modal
@@ -156,8 +171,8 @@ export default function ({ navigation, route }) {
                     setOpen(!open);
                     setKirim({
                         tipe: 'ADD',
-                        keterangan: '',
-                        judul: ''
+                        email: '',
+                        username: ''
                     })
                 }}>
                 <View style={{
@@ -176,19 +191,26 @@ export default function ({ navigation, route }) {
                         <ScrollView>
 
                             <MyGap jarak={10} />
-                            <MyInput label="Title" onChangeText={x => {
+                            <MyInput label="NISN / NIK" onChangeText={x => {
                                 setKirim({
                                     ...kirim,
-                                    judul: x
+                                    username: x
                                 })
-                            }} value={kirim.judul} iconname="create" />
+                            }} value={kirim.username} iconname="create" />
                             <MyGap jarak={10} />
-                            <MyInput multiline label="Description" onChangeText={x => {
+                            <MyInput multiline label="Email" onChangeText={x => {
                                 setKirim({
                                     ...kirim,
-                                    keterangan: x
+                                    email: x
                                 })
-                            }} value={kirim.keterangan} iconname="create" />
+                            }} value={kirim.email} iconname="create" />
+                            <MyGap jarak={10} />
+                            <MyInput secureTextEntry={true} label="New Password" onChangeText={x => {
+                                setKirim({
+                                    ...kirim,
+                                    password: x
+                                })
+                            }} value={kirim.password} iconname="create" />
                             <MyGap jarak={20} />
                             <MyButton title="Save" onPress={() => {
                                 console.log(kirim);
@@ -202,7 +224,7 @@ export default function ({ navigation, route }) {
                                 axios.post(link, kirim).then(res => {
                                     setKirim({
                                         tipe: 'ADD',
-                                        judul: ''
+                                        username: ''
                                     })
                                     __getTransaction();
                                     setOpen(false);

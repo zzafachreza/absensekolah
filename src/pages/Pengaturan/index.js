@@ -20,10 +20,16 @@ import RNFS from 'react-native-fs';
 export default function Pengaturan({ navigation }) {
 
     const [user, setUser] = useState({});
+    const [company, setCompany] = useState({});
 
     useEffect(() => {
         getData('user').then(res => {
             setUser(res)
+        })
+
+        axios.post(apiURL + 'company').then(res => {
+            setCompany(res.data.data);
+
         })
     }, [])
 
@@ -77,7 +83,7 @@ export default function Pengaturan({ navigation }) {
             backgroundColor: colors.white
         }}>
 
-            <MyHeader judul="SETTING" />
+            <MyHeader judul="SETTING" onPress={() => navigation.goBack()} />
 
             <View style={{
                 flex: 1,
@@ -93,22 +99,34 @@ export default function Pengaturan({ navigation }) {
                     { text: 'Attendance', onPress: () => navigation.navigate('KursusData', user) },
                 ])} />
 
-                <MYTombol icon="home" name="Class" onPress={() => navigation.navigate('MasterKelas', {
-                    judul: 'Class'
-                })} />
-                <MYTombol icon="library" name="Course" onPress={() => navigation.navigate('MasterKursus', {
-                    judul: 'Course'
-                })} />
-                <MYTombol icon="megaphone" name="Information" onPress={() => navigation.navigate('MasterInfo', {
-                    judul: 'Information'
-                })} />
+
+                {user.tipe == 'Teacher' && <>
+
+                    <MYTombol icon="home" name="Class" onPress={() => navigation.navigate('MasterKelas', {
+                        judul: 'Class'
+                    })} />
+                    <MYTombol icon="library" name="Course" onPress={() => navigation.navigate('MasterKursus', {
+                        judul: 'Course'
+                    })} />
+                    <MYTombol icon="megaphone" name="Information" onPress={() => navigation.navigate('MasterInfo', {
+                        judul: 'Information'
+                    })} />
+                    <MYTombol icon="people" name="User" onPress={() => navigation.navigate('MasterUser', {
+                        judul: 'User'
+                    })} />
+
+                </>}
+
+
 
                 <View style={{
                     marginVertical: 20,
                     borderTopWidth: 1,
                     borderColor: colors.border
                 }} />
-                <MYTombol icon="help-circle" name="Help" onPress={() => navigation.navigate('AccountEdit')} />
+                <MYTombol icon="help-circle" name="Help" onPress={() => {
+                    Linking.openURL('https://wa.me/' + company.tlp + '?text=Your Questions : ')
+                }} />
                 <MYTombol icon="log-out" name="Logout" onPress={btnKeluar} />
 
 

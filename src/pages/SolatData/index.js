@@ -22,7 +22,8 @@ export default function ({ navigation, route }) {
         getData('user').then(uu => {
             setUser(uu);
             axios.post(apiURL + 'solat_riwayat', {
-                fid_user: uu.id
+                fid_user: uu.id,
+                tipe: uu.tipe
             }).then(res => {
                 console.log(res.data);
                 setData(res.data)
@@ -43,6 +44,9 @@ export default function ({ navigation, route }) {
             }}>
                 <Text style={{
                     fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary
+                }}>{item.nama_lengkap}</Text>
+                <Text style={{
+                    fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary
                 }}>{moment(item.tanggal).format('dddd, DD MMMM YYYY')}</Text>
                 <View style={{
                     marginVertical: 10,
@@ -51,51 +55,116 @@ export default function ({ navigation, route }) {
                     borderBottomColor: colors.primary
                 }} />
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
-                    <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
-                        SUBUH
-                    </Text>
-                    <Icon type='ionicon'
-                        name={item.SUBUH > 0 ? 'checkmark-circle' : 'close-circle'}
-                        size={20}
-                        color={item.SUBUH > 0 ? colors.primary : colors.danger} />
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
-                    <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
-                        ZUHUR
-                    </Text>
-                    <Icon type='ionicon'
-                        name={item.ZUHUR > 0 ? 'checkmark-circle' : 'close-circle'}
-                        size={20}
-                        color={item.ZUHUR > 0 ? colors.primary : colors.danger} />
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
-                    <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
-                        ASHAR
-                    </Text>
-                    <Icon type='ionicon'
-                        name={item.ASHAR > 0 ? 'checkmark-circle' : 'close-circle'}
-                        size={20}
-                        color={item.ASHAR > 0 ? colors.primary : colors.danger} />
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
-                    <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
-                        MAGHRIB
-                    </Text>
-                    <Icon type='ionicon'
-                        name={item.MAGHRIB > 0 ? 'checkmark-circle' : 'close-circle'}
-                        size={20}
-                        color={item.MAGHRIB > 0 ? colors.primary : colors.danger} />
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
-                    <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
-                        ISYA
-                    </Text>
-                    <Icon type='ionicon'
-                        name={item.ISYA > 0 ? 'checkmark-circle' : 'close-circle'}
-                        size={20}
-                        color={item.ISYA > 0 ? colors.primary : colors.danger} />
-                </View>
+                <TouchableWithoutFeedback onPress={() => {
+                    if (item.SUBUH > 0) {
+                        axios.post(apiURL + 'get_solat', {
+                            fid_user: item.fid_user,
+                            tanggal: item.tanggal,
+                            nama_solat: 'SUBUH'
+                        }).then(ss => {
+                            console.log(ss.data);
+                            navigation.navigate('HistoryDetail', ss.data)
+                        })
+                    }
+                }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
+                        <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
+                            SUBUH
+                        </Text>
+                        <Icon type='ionicon'
+                            name={item.SUBUH > 0 ? 'checkmark-circle' : 'close-circle'}
+                            size={20}
+                            color={item.SUBUH > 0 ? colors.primary : colors.danger} />
+                    </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => {
+                    if (item.ZUHUR > 0) {
+                        axios.post(apiURL + 'get_solat', {
+                            fid_user: item.fid_user,
+                            tanggal: item.tanggal,
+                            nama_solat: 'ZUHUR'
+                        }).then(ss => {
+                            console.log(ss.data);
+                            navigation.navigate('HistoryDetail', ss.data)
+                        })
+                    }
+                }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
+                        <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
+                            ZUHUR
+                        </Text>
+                        <Icon type='ionicon'
+                            name={item.ZUHUR > 0 ? 'checkmark-circle' : 'close-circle'}
+                            size={20}
+                            color={item.ZUHUR > 0 ? colors.primary : colors.danger} />
+                    </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => {
+                    if (item.ASHAR > 0) {
+                        axios.post(apiURL + 'get_solat', {
+                            fid_user: item.fid_user,
+                            tanggal: item.tanggal,
+                            nama_solat: 'ASHAR'
+                        }).then(ss => {
+                            console.log(ss.data);
+                            navigation.navigate('HistoryDetail', ss.data)
+                        })
+                    }
+                }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
+                        <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
+                            ASHAR
+                        </Text>
+                        <Icon type='ionicon'
+                            name={item.ASHAR > 0 ? 'checkmark-circle' : 'close-circle'}
+                            size={20}
+                            color={item.ASHAR > 0 ? colors.primary : colors.danger} />
+                    </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => {
+                    if (item.MAGHRIB > 0) {
+                        axios.post(apiURL + 'get_solat', {
+                            fid_user: item.fid_user,
+                            tanggal: item.tanggal,
+                            nama_solat: 'MAGHRIB'
+                        }).then(ss => {
+                            console.log(ss.data);
+                            navigation.navigate('HistoryDetail', ss.data)
+                        })
+                    }
+                }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
+                        <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
+                            MAGHRIB
+                        </Text>
+                        <Icon type='ionicon'
+                            name={item.MAGHRIB > 0 ? 'checkmark-circle' : 'close-circle'}
+                            size={20}
+                            color={item.MAGHRIB > 0 ? colors.primary : colors.danger} />
+                    </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => {
+                    if (item.ISYA > 0) {
+                        axios.post(apiURL + 'get_solat', {
+                            fid_user: item.fid_user,
+                            tanggal: item.tanggal,
+                            nama_solat: 'ISYA'
+                        }).then(ss => {
+                            console.log(ss.data);
+                            navigation.navigate('HistoryDetail', ss.data)
+                        })
+                    }
+                }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.border }}>
+                        <Text style={{ fontFamily: fonts.secondary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
+                            ISYA
+                        </Text>
+                        <Icon type='ionicon'
+                            name={item.ISYA > 0 ? 'checkmark-circle' : 'close-circle'}
+                            size={20}
+                            color={item.ISYA > 0 ? colors.primary : colors.danger} />
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         )
     }

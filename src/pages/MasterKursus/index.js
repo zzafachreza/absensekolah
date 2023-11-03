@@ -10,6 +10,7 @@ import axios from 'axios';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import moment from 'moment';
+import { maskJs, maskCurrency } from 'mask-js';
 import 'moment/locale/id';
 import RNFS from 'react-native-fs';
 import DocumentPicker, {
@@ -21,7 +22,7 @@ import DocumentPicker, {
 
 
 import ProgressCircle from 'react-native-progress-circle'
-import { MyButton, MyGap, MyInput } from '../../components';
+import { MyButton, MyCalendar, MyGap, MyInput } from '../../components';
 import { Modal } from 'react-native';
 
 export default function ({ navigation, route }) {
@@ -29,7 +30,9 @@ export default function ({ navigation, route }) {
     const [kirim, setKirim] = useState({
         tipe: 'ADD',
         kode_kursus: '',
-        nama_kursus: ''
+        nama_kursus: '',
+        tanggal_kursus: moment().format('YYYY-MM-DD'),
+        jam_kursus: '',
     });
 
     const modul = 'kursus';
@@ -76,6 +79,22 @@ export default function ({ navigation, route }) {
                         fontFamily: fonts.secondary[400],
                         fontSize: 12
                     }}>{item.nama_kursus}</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 12
+                    }}>Course Date</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[400],
+                        fontSize: 12
+                    }}>{moment(item.tanggal_kursus).format('dddd, DD MMMM YYYY')}</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 12
+                    }}>Course Time</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[400],
+                        fontSize: 12
+                    }}>{item.jam_kursus}</Text>
                 </View>
                 <View style={{
                     flexDirection: 'row',
@@ -86,6 +105,8 @@ export default function ({ navigation, route }) {
                             tipe: 'UPDATE',
                             id: item.id,
                             nama_kursus: item.nama_kursus,
+                            tanggal_kursus: item.tanggal_kursus,
+                            jam_kursus: item.jam_kursus
                         });
                         setOpen(true);
                     }} style={{
@@ -157,7 +178,9 @@ export default function ({ navigation, route }) {
                     setKirim({
                         tipe: 'ADD',
                         kode_kursus: '',
-                        nama_kursus: ''
+                        nama_kursus: '',
+                        tanggal_kursus: moment().format('YYYY-MM-DD'),
+                        jam_kursus: ''
                     })
                 }}>
                 <View style={{
@@ -187,6 +210,20 @@ export default function ({ navigation, route }) {
                                     nama_kursus: x
                                 })
                             }} value={kirim.nama_kursus} iconname="create" />
+                            <MyGap jarak={10} />
+                            <MyCalendar label="Course Date" value={kirim.tanggal_kursus} iconname="create" onDateChange={x => {
+                                setKirim({
+                                    ...kirim,
+                                    tanggal_kursus: x
+                                })
+                            }} />
+                            <MyGap jarak={10} />
+                            <MyInput label="Course Time" maxLength={5} keyboardType='number-pad' onChangeText={x => {
+                                setKirim({
+                                    ...kirim,
+                                    jam_kursus: maskJs('99:99', x)
+                                })
+                            }} value={kirim.jam_kursus} iconname="create" />
                             <MyGap jarak={20} />
                             <MyButton title="Save" onPress={() => {
                                 console.log(kirim);

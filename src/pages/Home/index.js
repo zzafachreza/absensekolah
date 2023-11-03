@@ -82,37 +82,34 @@ export default function Home({ navigation, route }) {
   const __renderItem = ({ item }) => {
     return (
 
-      <View style={{
-        padding: 10,
-        // borderWidth: 1,
-        elevation: 2,
-        padding: 20,
-        marginVertical: 10,
-        borderRadius: 5,
-        flexDirection: 'row',
-        alignItems: 'center'
-      }}>
-        <Icon type='ionicon' name='information' size={50} color={colors.secondary} />
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('InfoDetail', item)}>
         <View style={{
-          left: 10,
-          flex: 1,
+          padding: 10,
+          // borderWidth: 1,
+          elevation: 2,
+          padding: 20,
+          marginVertical: 10,
+          borderRadius: 5,
+          flexDirection: 'row',
+          alignItems: 'center'
         }}>
-          <Text style={{
+          <Icon type='ionicon' name='information' size={50} color={colors.secondary} />
+          <View style={{
+            left: 10,
+            flex: 1,
+          }}>
+            <Text style={{
 
-            fontSize: windowWidth / 25,
-            fontFamily: fonts.primary[600],
-            color: colors.primary,
+              fontSize: windowWidth / 20,
+              fontFamily: fonts.primary[600],
+              color: colors.primary,
+              textAlign: 'center'
 
-          }}>{item.judul}</Text>
-          <Text style={{
+            }}>{item.judul}</Text>
 
-            fontSize: windowWidth / 30,
-            fontFamily: fonts.primary[400],
-            color: colors.primary,
-            // textAlign: 'center'
-          }}>{item.keterangan}</Text>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
 
     )
   }
