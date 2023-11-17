@@ -76,18 +76,21 @@ export default function ({ navigation, route }) {
                     padding: 5,
                     backgroundColor: colors.white,
                     borderRadius: 5,
+                    flexDirection: 'row'
                 }}>
                 <Text
                     style={{
+                        flex: 1,
+                        color: colors.primary,
                         fontFamily: fonts.primary[400],
-                        color: '#8E99A2',
+
                     }}>
                     {label}
                 </Text>
                 <Text
                     style={{
                         fontFamily: fonts.primary[400],
-                        color: colors.black,
+                        color: colors.primary,
                     }}>
                     {value}
                 </Text>
@@ -112,6 +115,42 @@ export default function ({ navigation, route }) {
             {open &&
                 <>
                     <MyHeader onPress={() => navigation.goBack()} judul="PROFILE" />
+                    <View style={{
+                        backgroundColor: colors.primary,
+                        padding: 10,
+                        flexDirection: 'row'
+                    }}>
+                        <View style={{
+                            width: 81,
+                            height: 81,
+                            alignSelf: 'center',
+                            borderWidth: 3,
+                            borderRadius: 40,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+
+                        }}>
+                            <Image source={{
+                                uri: user.foto_user
+                            }} style={{
+                                width: 80,
+                                height: 80,
+                                borderRadius: 40,
+                            }} />
+                        </View>
+                        <View style={{
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{
+                                fontFamily: fonts.secondary[600],
+                                color: colors.white,
+                                fontSize: 20,
+                            }}>{user.username}</Text>
+                        </View>
+                    </View>
+
 
                     <View style={{
                         backgroundColor: colors.white,
@@ -119,40 +158,37 @@ export default function ({ navigation, route }) {
                     }}>
 
                         <View style={{ padding: 10, }}>
-                            <View style={{
-                                width: 81,
-                                height: 81,
-                                alignSelf: 'center',
-                                borderWidth: 3,
-                                borderRadius: 40,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-
-                            }}>
-                                <Image source={{
-                                    uri: user.foto_user
-                                }} style={{
-                                    width: 80,
-                                    height: 80,
-                                    borderRadius: 40,
-                                }} />
-                            </View>
-                            <MyList label="Login as" value={user.tipe} />
-                            <MyList label="Name" value={user.nama_lengkap} />
-                            <MyList label={user.tipe == 'Teacher' ? 'NIK' : 'NISN'} value={user.username} />
-
-                            <MyList label="Date" value={moment(user.tanggal_lahir).format('DD MMMM YYYY')} />
-                            <MyList label="Gender" value={user.jenis_kelamin} />
-
-                            <MyList label="Email" value={user.email} />
-                            <MyList label={user.tipe == 'Teacher' ? 'Course' : 'Class'} value={user.tipe == 'Teacher' ? user.nama_kursus : user.nama_kelas} />
-
-
-
 
                         </View>
-                        {/* data detail */}
+                        <MyList label="Login as" value={user.tipe} />
+                        <View style={{
+                            borderWidth: 0.3,
+                            borderColor: colors.border
+                        }} />
+                        <MyList label="Name" value={user.nama_lengkap} />
+                        <MyList label={user.tipe == 'Teacher' ? 'NIK' : 'NISN'} value={user.username} />
+                        <View style={{
+                            borderWidth: 0.3,
+                            borderColor: colors.border
+                        }} />
+                        <MyList label="Date" value={moment(user.tanggal_lahir).format('DD MMMM YYYY')} />
+                        <MyList label="Gender" value={user.jenis_kelamin} />
+                        <View style={{
+                            borderWidth: 0.3,
+                            borderColor: colors.border
+                        }} />
+                        <MyList label="Email" value={user.email} />
+                        <MyList label={user.tipe == 'Teacher' ? 'Course' : 'Class'} value={user.tipe == 'Teacher' ? user.nama_kursus : user.nama_kelas} />
+
+                        <View style={{
+                            borderWidth: 0.3,
+                            borderColor: colors.border
+                        }} />
+
+
                     </View>
+                    {/* data detail */}
+
                 </>
             }
             <View style={{

@@ -36,6 +36,8 @@ export default function ({ navigation }) {
         fid_kursus: '',
         password: '',
         repassword: '',
+        telepon: '',
+        alamat: ''
 
 
     });
@@ -168,7 +170,36 @@ export default function ({ navigation }) {
                             })
                         }
                     />
-                    <MyGap jarak={5} />
+                    <MyGap jarak={10} />
+                    <MyInput
+                        placeholder="Enter phone number"
+                        label="Phone Number"
+                        keyboardType='phone-pad'
+                        iconname="call-outline"
+                        value={data.telepon}
+                        onChangeText={value =>
+                            setData({
+                                ...data,
+                                telepon: value,
+                            })
+                        }
+                    />
+
+                    <MyGap jarak={10} />
+                    <MyInput
+                        placeholder="Enter address"
+                        label="Adress"
+                        iconname="location-outline"
+                        value={data.alamat}
+                        onChangeText={value =>
+                            setData({
+                                ...data,
+                                alamat: value,
+                            })
+                        }
+                    />
+
+                    <MyGap jarak={10} />
 
 
                     <MyInput

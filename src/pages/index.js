@@ -29,6 +29,7 @@ import KursusData from './KursusData';
 import MasterUser from './MasterUser';
 import InfoDetail from './InfoDetail';
 import HistoryDetail from './HistoryDetail';
+import MapData from './HistoryDetail/map';
 
 // new
 
@@ -68,6 +69,7 @@ export {
   KursusData,
   MasterUser,
   InfoDetail,
-  HistoryDetail
+  HistoryDetail,
+  MapData
 
 };

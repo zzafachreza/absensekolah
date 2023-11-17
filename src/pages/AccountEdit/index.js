@@ -37,7 +37,10 @@ export default function AccountEdit({ navigation, route }) {
                 Alert.alert(MYAPP, res.data.message);
                 console.log(res.data.data);
                 storeData('user', res.data.data);
-                navigation.replace('Home');
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Splash' }],
+                });
             }
         }).finally(() => {
             setLoading(false);
@@ -110,12 +113,17 @@ export default function AccountEdit({ navigation, route }) {
                 <MyGap jarak={10} />
                 <MyInput label="NIK/NISN" iconname="card" value={kirim.username} onChangeText={x => setKirim({ ...kirim, username: x })} />
                 <MyGap jarak={10} />
-                <MyCalendar iconname="calendar" label="Date" />
+                <MyCalendar onDateChange={x => {
+                    setKirim({
+                        ...kirim,
+                        tanggal_lahir: x
+                    })
+                }} iconname="calendar" label="Date" />
                 <MyGap jarak={10} />
                 <MyPicker iconname="male-female" label="Jenis Kelamin" value={kirim.gender} onValueChange={x => {
                     setKirim({
                         ...kirim,
-                        gender: x
+                        jenis_kelamin: x
                     })
                 }} data={[
                     { label: 'Laki-laki', value: 'Laki-laki' },

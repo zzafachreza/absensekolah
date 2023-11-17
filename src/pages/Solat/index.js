@@ -13,7 +13,7 @@ import moment from 'moment';
 import 'moment/locale/id';
 import { MyHeader } from '../../components';
 import { launchCamera } from 'react-native-image-picker';
-
+import GetLocation from 'react-native-get-location'
 
 const MySolat = ({ judul, desc, onPress, done }) => {
     return (
@@ -70,6 +70,7 @@ const MySolat = ({ judul, desc, onPress, done }) => {
                     }} />
                     <Icon type='ionicon' name='time' color={colors.white} size={20} />
                 </View>}
+
             </View>
         </TouchableWithoutFeedback>
     )
@@ -118,8 +119,27 @@ export default function Solat({ navigation, route }) {
         ISYA: 0,
     })
 
-
+    const [lokasi, setLokasi] = useState({
+        lat: 0,
+        long: 0
+    })
     useEffect(() => {
+
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 60000,
+        })
+            .then(location => {
+                console.log(location);
+                setLokasi({
+                    lat: location.latitude,
+                    long: location.longitude
+                })
+            })
+            .catch(error => {
+                const { code, message } = error;
+                console.warn(code, message);
+            })
 
         requestCameraPermission();
         __getTransaction();
@@ -134,6 +154,9 @@ export default function Solat({ navigation, route }) {
                 ...kirim,
                 fid_user: res.id
             });
+
+
+
 
             axios.post(apiURL + 'solat', {
                 fid_user: res.id
@@ -152,17 +175,25 @@ export default function Solat({ navigation, route }) {
             <MyHeader judul="PRAYERS" onPress={() => navigation.goBack()} />
 
 
-            <Text style={{
-                fontFamily: fonts.secondary[600],
-                fontSize: 20,
-                margin: 10,
-                color: colors.primary,
-            }}>{moment().format('dddd, DD MMMM YYYY')}</Text>
+            <View style={{
+                padding: 10,
+            }}>
+                <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    fontSize: 15,
+                    color: colors.primary,
+                }}>{moment().format('dddd, DD MMMM YYYY')}</Text>
+                <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    fontSize: 13,
+                    color: colors.black,
+                }}>latitude & longitude : {lokasi.lat}, {lokasi.long}</Text>
 
+            </View>
             <View style={{
                 flex: 1,
-                padding: 20,
-                justifyContent: 'space-around'
+                paddingHorizontal: 20,
+                justifyContent: 'space-evenly'
             }}>
                 <MySolat done={done.SUBUH} judul="SUBUH" desc="05.00 - 06.00 WIB" onPress={() => {
 
@@ -180,6 +211,8 @@ export default function Solat({ navigation, route }) {
 
                                 axios.post(apiURL + 'solat_add', {
                                     ...kirim,
+                                    lat: lokasi.lat,
+                                    long: lokasi.long,
                                     nama_solat: 'SUBUH',
                                     foto_solat: `data:${response.type};base64, ${response.base64}`,
                                 }).then(res => {
@@ -211,6 +244,8 @@ export default function Solat({ navigation, route }) {
                             if (!response.didCancel) {
                                 axios.post(apiURL + 'solat_add', {
                                     ...kirim,
+                                    lat: lokasi.lat,
+                                    long: lokasi.long,
                                     nama_solat: 'ZUHUR',
                                     foto_solat: `data:${response.type};base64, ${response.base64}`,
                                 }).then(res => {
@@ -241,6 +276,8 @@ export default function Solat({ navigation, route }) {
                             if (!response.didCancel) {
                                 axios.post(apiURL + 'solat_add', {
                                     ...kirim,
+                                    lat: lokasi.lat,
+                                    long: lokasi.long,
                                     nama_solat: 'ASHAR',
                                     foto_solat: `data:${response.type};base64, ${response.base64}`,
                                 }).then(res => {
@@ -270,6 +307,8 @@ export default function Solat({ navigation, route }) {
                             if (!response.didCancel) {
                                 axios.post(apiURL + 'solat_add', {
                                     ...kirim,
+                                    lat: lokasi.lat,
+                                    long: lokasi.long,
                                     nama_solat: 'MAGHRIB',
                                     foto_solat: `data:${response.type};base64, ${response.base64}`,
                                 }).then(res => {
@@ -298,6 +337,8 @@ export default function Solat({ navigation, route }) {
                             if (!response.didCancel) {
                                 axios.post(apiURL + 'solat_add', {
                                     ...kirim,
+                                    lat: lokasi.lat,
+                                    long: lokasi.long,
                                     nama_solat: 'ISYA',
                                     foto_solat: `data:${response.type};base64, ${response.base64}`,
                                 }).then(res => {

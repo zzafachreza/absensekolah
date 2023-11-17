@@ -34,6 +34,7 @@ import {
   MasterUser,
   InfoDetail,
   HistoryDetail,
+  MapData,
 
 } from '../pages';
 import { colors } from '../utils';
@@ -87,6 +88,7 @@ export default function Router() {
       <Stack.Screen name="MasterUser" component={MasterUser} options={{ headerShown: false }} />
       <Stack.Screen name="InfoDetail" component={InfoDetail} options={{ headerShown: false }} />
       <Stack.Screen name="HistoryDetail" component={HistoryDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="MapData" component={MapData} options={{ headerShown: false }} />
 
 
 

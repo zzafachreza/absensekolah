@@ -86,9 +86,11 @@ export default function Home({ navigation, route }) {
         <View style={{
           padding: 10,
           // borderWidth: 1,
-          elevation: 2,
+          // elevation: 2,
+          borderWidth: 1,
+          borderColor: '#CDCDCD',
           padding: 20,
-          marginVertical: 10,
+          marginVertical: 5,
           borderRadius: 5,
           flexDirection: 'row',
           alignItems: 'center'
@@ -146,7 +148,7 @@ export default function Home({ navigation, route }) {
           backgroundColor: colors.primary
         }}></View>
 
-        <FlatList data={data} renderItem={__renderItem} />
+        <FlatList showsVerticalScrollIndicator={false} data={data} renderItem={__renderItem} />
 
 
       </View>

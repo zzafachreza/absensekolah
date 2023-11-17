@@ -21,7 +21,7 @@ export default function InfoDetail({ navigation, route }) {
             flex: 1,
             backgroundColor: colors.white
         }}>
-            <MyHeader judul="Informasi Detail" />
+            <MyHeader judul="Informasi Detail" onPress={() => navigation.goBack()} />
 
             <ScrollView style={{
                 padding: 10,

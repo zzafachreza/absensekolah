@@ -115,7 +115,7 @@ export default function ({ navigation, route }) {
             backgroundColor: colors.white,
             padding: 10,
         }}>
-            <MyHeader onPress={() => navigation.goBack()} judul="HISTORY PRAYER" />
+            <MyHeader onPress={() => navigation.goBack()} judul="HISTORY ATTENDANCE" />
             <Text style={{
                 fontFamily: fonts.secondary[800],
                 fontSize: 15,

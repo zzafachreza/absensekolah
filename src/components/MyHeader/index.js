@@ -16,8 +16,8 @@ export default function MyHeader({ onPress, judul }) {
       height: 50,
       borderBottomWidth: 3,
       borderBottomColor: colors.primary,
-      borderBottomLeftRadius: 10,
-      borderBottomRightRadius: 10,
+      // borderBottomLeftRadius: 10,
+      // borderBottomRightRadius: 10,
       alignItems: 'center'
     }}>
       <TouchableOpacity onPress={onPress} style={{

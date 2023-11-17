@@ -33,6 +33,7 @@ export default function ({ navigation, route }) {
         nama_kursus: '',
         tanggal_kursus: moment().format('YYYY-MM-DD'),
         jam_kursus: '',
+        jam_selesai: '',
     });
 
     const modul = 'kursus';
@@ -90,11 +91,19 @@ export default function ({ navigation, route }) {
                     <Text style={{
                         fontFamily: fonts.secondary[600],
                         fontSize: 12
-                    }}>Course Time</Text>
+                    }}>Course Start Time</Text>
                     <Text style={{
                         fontFamily: fonts.secondary[400],
                         fontSize: 12
                     }}>{item.jam_kursus}</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 12
+                    }}>Course End Time</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[400],
+                        fontSize: 12
+                    }}>{item.jam_selesai}</Text>
                 </View>
                 <View style={{
                     flexDirection: 'row',
@@ -106,7 +115,8 @@ export default function ({ navigation, route }) {
                             id: item.id,
                             nama_kursus: item.nama_kursus,
                             tanggal_kursus: item.tanggal_kursus,
-                            jam_kursus: item.jam_kursus
+                            jam_kursus: item.jam_kursus,
+                            jam_selesai: item.jam_selesai
                         });
                         setOpen(true);
                     }} style={{
@@ -180,7 +190,8 @@ export default function ({ navigation, route }) {
                         kode_kursus: '',
                         nama_kursus: '',
                         tanggal_kursus: moment().format('YYYY-MM-DD'),
-                        jam_kursus: ''
+                        jam_kursus: '',
+                        jam_selesai: '',
                     })
                 }}>
                 <View style={{
@@ -218,12 +229,19 @@ export default function ({ navigation, route }) {
                                 })
                             }} />
                             <MyGap jarak={10} />
-                            <MyInput label="Course Time" maxLength={5} keyboardType='number-pad' onChangeText={x => {
+                            <MyInput label="Course Start Time" maxLength={5} keyboardType='number-pad' onChangeText={x => {
                                 setKirim({
                                     ...kirim,
                                     jam_kursus: maskJs('99:99', x)
                                 })
                             }} value={kirim.jam_kursus} iconname="create" />
+                            <MyGap jarak={10} />
+                            <MyInput label="Course End Time" maxLength={5} keyboardType='number-pad' onChangeText={x => {
+                                setKirim({
+                                    ...kirim,
+                                    jam_selesai: maskJs('99:99', x)
+                                })
+                            }} value={kirim.jam_selesai} iconname="create" />
                             <MyGap jarak={20} />
                             <MyButton title="Save" onPress={() => {
                                 console.log(kirim);

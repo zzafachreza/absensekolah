@@ -55,6 +55,7 @@ export default function MyCalendar({
 
           style={{ width: '100%', height: 45, }}
           date={value}
+
           mode="date"
           placeholder={placeholder}
           showIcon={false}
@@ -71,6 +72,8 @@ export default function MyCalendar({
             dateInput: {
               fontFamily: fonts.secondary[600],
               textAlign: 'left',
+              alignItems: 'flex-start',
+              left: 20,
               borderWidth: 0,
               color: colors.white
             }
