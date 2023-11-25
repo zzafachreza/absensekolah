@@ -113,6 +113,7 @@ export default function ({ navigation, route }) {
                         setKirim({
                             tipe: 'UPDATE',
                             id: item.id,
+                            kode_kursus: item.kode_kursus,
                             nama_kursus: item.nama_kursus,
                             tanggal_kursus: item.tanggal_kursus,
                             jam_kursus: item.jam_kursus,

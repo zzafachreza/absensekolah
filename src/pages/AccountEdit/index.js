@@ -113,7 +113,7 @@ export default function AccountEdit({ navigation, route }) {
                 <MyGap jarak={10} />
                 <MyInput label="NIK/NISN" iconname="card" value={kirim.username} onChangeText={x => setKirim({ ...kirim, username: x })} />
                 <MyGap jarak={10} />
-                <MyCalendar onDateChange={x => {
+                <MyCalendar value={kirim.tanggal_lahir} onDateChange={x => {
                     setKirim({
                         ...kirim,
                         tanggal_lahir: x
@@ -131,7 +131,11 @@ export default function AccountEdit({ navigation, route }) {
                 ]} />
                 <MyGap jarak={10} />
                 <MyInput label="Email" iconname="mail" value={kirim.email} onChangeText={x => setKirim({ ...kirim, email: x })} />
-
+                <MyGap jarak={10} />
+                <MyInput label="Phone Number" keyboardType='phone-pad' iconname="call" value={kirim.telepon} onChangeText={x => setKirim({ ...kirim, telepon: x })} />
+                <MyGap jarak={10} />
+                <MyInput label="Address" iconname="location" value={kirim.alamat} onChangeText={x => setKirim({ ...kirim, alamat: x })} />
+                <MyGap jarak={10} />
                 <MyInput label="Password" iconname="lock-closed" secureTextEntry={true} onChangeText={x => setKirim({ ...kirim, newpassword: x })} placeholder="Kosongkan jika tidak diubah" />
                 <MyGap jarak={20} />
                 {loading && <ActivityIndicator color={colors.primary} size="large" />}

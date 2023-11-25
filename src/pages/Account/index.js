@@ -185,6 +185,14 @@ export default function ({ navigation, route }) {
                             borderColor: colors.border
                         }} />
 
+                        <View style={{
+                            borderWidth: 0.3,
+                            borderColor: colors.border
+                        }} />
+                        <MyList label="Phone Number" value={user.telepon} />
+                        <MyList label="Address" value={user.alamat} />
+
+
 
                     </View>
                     {/* data detail */}
