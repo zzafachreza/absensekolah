@@ -8,16 +8,6 @@ import {
   Account,
   AccountEdit,
 
-  APPLaporan,
-  APPMasterData,
-  APPProduksi,
-  APPMasterDataProduk,
-  APPMasterDataKaryawan,
-  APPProduksiData,
-  APPProduksiLine,
-  AppLaporanKaryawan,
-  APPLaporanProduksi,
-  APPLaporanLine,
   Register1,
   Register2,
   Pengaturan,
@@ -55,18 +45,6 @@ export default function Router() {
 
 
 
-      <Stack.Screen name="APPLaporan" component={APPLaporan} options={{ headerShown: false }} />
-      <Stack.Screen name="APPMasterData" component={APPMasterData} options={{ headerShown: false }} />
-      <Stack.Screen name="APPProduksi" component={APPProduksi} options={{ headerShown: false }} />
-
-      <Stack.Screen name="APPMasterDataProduk" component={APPMasterDataProduk} options={{ headerShown: false }} />
-      <Stack.Screen name="APPMasterDataKaryawan" component={APPMasterDataKaryawan} options={{ headerShown: false }} />
-
-      <Stack.Screen name="APPProduksiData" component={APPProduksiData} options={{ headerShown: false }} />
-      <Stack.Screen name="APPProduksiLine" component={APPProduksiLine} options={{ headerShown: false }} />
-      <Stack.Screen name="AppLaporanKaryawan" component={AppLaporanKaryawan} options={{ headerShown: false }} />
-      <Stack.Screen name="APPLaporanProduksi" component={APPLaporanProduksi} options={{ headerShown: false }} />
-      <Stack.Screen name="APPLaporanLine" component={APPLaporanLine} options={{ headerShown: false }} />
 
       <Stack.Screen name="Register1" component={Register1} options={{ headerShown: false }} />
       <Stack.Screen name="Register2" component={Register2} options={{ headerShown: false }} />
