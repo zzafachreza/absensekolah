@@ -17,6 +17,7 @@ import GetLocation from 'react-native-get-location'
 
 export default function ({ navigation, route }) {
 
+    const [KursusHIS, setKursusHIS] = useState([]);
     const [open, setOpen] = useState(false);
     const [user, setUser] = useState({});
     const [kursus, setKursus] = useState({});
@@ -57,12 +58,21 @@ export default function ({ navigation, route }) {
 
     useEffect(() => {
 
+
+        getData('kursus').then(res => {
+            if (!res) {
+                setKursusHIS([]);
+            } else {
+                setKursusHIS(res);
+            }
+        })
+
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 60000,
         })
             .then(location => {
-                console.log(location);
+
                 setLokasi({
                     lat: location.latitude,
                     long: location.longitude
@@ -76,7 +86,7 @@ export default function ({ navigation, route }) {
         getData('user').then(uu => {
             setUser(uu);
             axios.post(apiURL + 'kursus_list').then(res => {
-                console.log(res.data);
+
                 setPilihan(res.data);
                 setKirim({
                     ...kirim,
@@ -122,12 +132,52 @@ export default function ({ navigation, route }) {
                                 console.log(Filtered[0]);
                                 setKursus(Filtered[0]);
                                 setOpen(true);
+                                let tmpKursus = [...KursusHIS];
+                                tmpKursus.push(Filtered[0]);
+                                setKursusHIS(tmpKursus);
+                                storeData('kursus', tmpKursus);
+
                             } else {
                                 Alert.alert(MYAPP, 'THE COURSE IS NOT FOUND !')
                             }
 
                         }} title="SUBMIT" warna={colors.primary} colorText={colors.white} />
                     </View>
+
+
+                </View>
+                <View style={{
+                    padding: 20,
+                }}>
+                    <Text style={{
+                        fontFamily: fonts.secondary[800],
+                        fontSize: 15
+                    }}>Course Code History</Text>
+                    {KursusHIS.length > 0 && KursusHIS.map(i => {
+                        return (
+                            <TouchableNativeFeedback onPress={() => {
+                                setKursus(i);
+                                setOpen(true);
+                            }}>
+                                <View style={{
+                                    padding: 10,
+                                    borderWidth: 1,
+                                    marginVertical: 10,
+                                    borderRadius: 10,
+                                    flexDirection: 'row',
+                                    borderColor: colors.primary,
+                                    alignItems: 'center'
+                                }}>
+                                    <Text style={{
+                                        flex: 1,
+                                        fontFamily: fonts.secondary[600],
+                                        fontSize: 15
+                                    }}>{i.kode_kursus} - {i.nama_kursus}</Text>
+                                    <Icon type='ionicon' name='chevron-forward-circle-outline' color={colors.primary} />
+                                </View>
+                            </TouchableNativeFeedback>
+                        )
+                    })}
                 </View>
             </>}
 
@@ -180,7 +230,7 @@ export default function ({ navigation, route }) {
                             <Text style={{
                                 fontFamily: fonts.secondary[800], fontSize: 14,
                                 color: colors.white
-                            }}>{kursus.jam_kursus} WIB</Text>
+                            }}>{kursus.jam_kursus} s/d {kursus.jam_selesai} WIB</Text>
                         </View>
                     </View>
                     <View style={{

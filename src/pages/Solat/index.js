@@ -15,64 +15,68 @@ import { MyHeader } from '../../components';
 import { launchCamera } from 'react-native-image-picker';
 import GetLocation from 'react-native-get-location'
 
-const MySolat = ({ judul, desc, onPress, done }) => {
+const MySolat = ({ judul, desc, onPress, onPress2, done }) => {
     return (
-        <TouchableWithoutFeedback onPress={onPress}>
+
+        <View style={{
+            backgroundColor: done > 0 ? colors.secondary : colors.white,
+            padding: 20,
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: colors.primary,
+            flexDirection: 'row',
+            alignItems: 'center'
+        }}>
+            <Image source={require('../../assets/jam.png')} style={{
+                width: 50,
+                height: 50,
+            }} />
             <View style={{
-                backgroundColor: done > 0 ? colors.secondary : colors.white,
-                padding: 20,
-                borderWidth: 1,
-                borderRadius: 10,
-                borderColor: colors.primary,
-                flexDirection: 'row',
+                flex: 1,
+                justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <Image source={require('../../assets/jam.png')} style={{
-                    width: 50,
-                    height: 50,
-                }} />
-                <View style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text style={{
-                        fontFamily: fonts.secondary[800],
-                        color: done > 0 ? colors.white : colors.primary,
-                        fontSize: 22,
-                    }}>{judul}</Text>
-                    <Text style={{
-                        fontFamily: fonts.secondary[400],
-                        color: done > 0 ? colors.white : colors.primary,
-                        fontSize: 15,
-                    }}>{desc}</Text>
-                </View>
-                {done == 0 && <View style={{
-                    flexDirection: 'row',
-                    padding: 10,
-                    justifyContent: 'space-around'
-                }}>
-                    <Icon type='ionicon' name='location' color={colors.placeholder} size={20} />
-                    <View style={{
-                        marginHorizontal: 10,
-                    }} />
-                    <Icon type='ionicon' name='camera' color={colors.placeholder} size={20} />
-                </View>}
-
-                {done > 0 && <View style={{
-                    flexDirection: 'row',
-                    padding: 10,
-                    justifyContent: 'space-around'
-                }}>
-                    <Icon type='ionicon' name='checkmark-circle' color={colors.white} size={20} />
-                    <View style={{
-                        marginHorizontal: 10,
-                    }} />
-                    <Icon type='ionicon' name='time' color={colors.white} size={20} />
-                </View>}
-
+                <Text style={{
+                    fontFamily: fonts.secondary[800],
+                    color: done > 0 ? colors.white : colors.primary,
+                    fontSize: 22,
+                }}>{judul}</Text>
+                <Text style={{
+                    fontFamily: fonts.secondary[400],
+                    color: done > 0 ? colors.white : colors.primary,
+                    fontSize: 15,
+                }}>{desc}</Text>
             </View>
-        </TouchableWithoutFeedback>
+            {done == 0 && <View style={{
+                flexDirection: 'row',
+                padding: 10,
+                justifyContent: 'space-around'
+            }}>
+                <TouchableOpacity onPress={onPress2}>
+                    <Icon type='ionicon' name='location' color={colors.placeholder} size={20} />
+                </TouchableOpacity>
+                <View style={{
+                    marginHorizontal: 10,
+                }} />
+                <TouchableOpacity onPress={onPress}>
+                    <Icon type='ionicon' name='camera' color={colors.placeholder} size={20} />
+                </TouchableOpacity>
+            </View>}
+
+            {done > 0 && <View style={{
+                flexDirection: 'row',
+                padding: 10,
+                justifyContent: 'space-around'
+            }}>
+                <Icon type='ionicon' name='checkmark-circle' color={colors.white} size={20} />
+                <View style={{
+                    marginHorizontal: 10,
+                }} />
+                <Icon type='ionicon' name='time' color={colors.white} size={20} />
+            </View>}
+
+        </View>
+
     )
 }
 
@@ -134,7 +138,7 @@ export default function Solat({ navigation, route }) {
                 setLokasi({
                     lat: location.latitude,
                     long: location.longitude
-                })
+                });
             })
             .catch(error => {
                 const { code, message } = error;
@@ -183,11 +187,7 @@ export default function Solat({ navigation, route }) {
                     fontSize: 15,
                     color: colors.primary,
                 }}>{moment().format('dddd, DD MMMM YYYY')}</Text>
-                <Text style={{
-                    fontFamily: fonts.secondary[600],
-                    fontSize: 13,
-                    color: colors.black,
-                }}>latitude & longitude : {lokasi.lat}, {lokasi.long}</Text>
+
 
             </View>
             <View style={{
@@ -195,7 +195,9 @@ export default function Solat({ navigation, route }) {
                 paddingHorizontal: 20,
                 justifyContent: 'space-evenly'
             }}>
-                <MySolat done={done.SUBUH} judul="SUBUH" desc="05.00 - 06.00 WIB" onPress={() => {
+                <MySolat onPress2={() => {
+                    Alert.alert('Titik Koordinat berhasil di ambil', `${lokasi.lat}, ${lokasi.long}`)
+                }} done={done.SUBUH} judul="SUBUH" desc="05.00 - 06.00 WIB" onPress={() => {
 
                     if (done.SUBUH > 0) {
                         Alert.alert(MYAPP, 'you have prayed !')
@@ -226,7 +228,9 @@ export default function Solat({ navigation, route }) {
 
 
                 }} />
-                <MySolat done={done.ZUHUR} judul="ZUHUR" desc="12.30 - 13.15 WIB" onPress={() => {
+                <MySolat onPress2={() => {
+                    Alert.alert('Titik Koordinat berhasil di ambil', `${lokasi.lat}, ${lokasi.long}`)
+                }} done={done.ZUHUR} judul="ZUHUR" desc="12.30 - 13.15 WIB" onPress={() => {
 
                     if (done.ZUHUR > 0) {
                         Alert.alert(MYAPP, 'you have prayed !')
@@ -261,7 +265,9 @@ export default function Solat({ navigation, route }) {
 
 
                 }} />
-                <MySolat done={done.ASHAR} judul="ASHAR" desc="15.30 - 16.00 WIB" onPress={() => {
+                <MySolat onPress2={() => {
+                    Alert.alert('Titik Koordinat berhasil di ambil', `${lokasi.lat}, ${lokasi.long}`)
+                }} done={done.ASHAR} judul="ASHAR" desc="15.30 - 16.00 WIB" onPress={() => {
                     if (done.ASHAR > 0) {
                         Alert.alert(MYAPP, 'you have prayed !')
                     } else {
@@ -291,7 +297,9 @@ export default function Solat({ navigation, route }) {
 
 
                 }} />
-                <MySolat done={done.MAGHRIB} judul="MAGHRIB" desc="18.15 - 18.45 WIB" onPress={() => {
+                <MySolat onPress2={() => {
+                    Alert.alert('Titik Koordinat berhasil di ambil', `${lokasi.lat}, ${lokasi.long}`)
+                }} done={done.MAGHRIB} judul="MAGHRIB" desc="18.15 - 18.45 WIB" onPress={() => {
 
                     if (done.MAGHRIB > 0) {
                         Alert.alert(MYAPP, 'you have prayed !')
@@ -321,7 +329,9 @@ export default function Solat({ navigation, route }) {
                     }
 
                 }} />
-                <MySolat done={done.ISYA} judul="ISYA" desc="19.30 - 21.10 WIB" onPress={() => {
+                <MySolat onPress2={() => {
+                    Alert.alert('Titik Koordinat berhasil di ambil', `${lokasi.lat}, ${lokasi.long}`)
+                }} done={done.ISYA} judul="ISYA" desc="19.30 - 21.10 WIB" onPress={() => {
 
                     if (done.ISYA > 0) {
                         Alert.alert(MYAPP, 'you have prayed !')
