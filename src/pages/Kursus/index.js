@@ -17,6 +17,31 @@ import GetLocation from 'react-native-get-location'
 
 export default function ({ navigation, route }) {
 
+    const requestCameraPermission = async () => {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.CAMERA,
+                {
+                    title: 'Cool Photo App Camera Permission',
+                    message:
+                        'Cool Photo App needs access to your camera ' +
+                        'so you can take awesome pictures.',
+                    buttonNeutral: 'Ask Me Later',
+                    buttonNegative: 'Cancel',
+                    buttonPositive: 'OK',
+                },
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log('You can use the camera');
+            } else {
+                console.log('Camera permission denied');
+            }
+        } catch (err) {
+            console.warn(err);
+        }
+    };
+
+
     const [KursusHIS, setKursusHIS] = useState([]);
     const [open, setOpen] = useState(false);
     const [user, setUser] = useState({});
@@ -59,13 +84,7 @@ export default function ({ navigation, route }) {
     useEffect(() => {
 
 
-        getData('kursus').then(res => {
-            if (!res) {
-                setKursusHIS([]);
-            } else {
-                setKursusHIS(res);
-            }
-        })
+        requestCameraPermission();
 
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
@@ -85,6 +104,13 @@ export default function ({ navigation, route }) {
 
         getData('user').then(uu => {
             setUser(uu);
+            getData('kursus' + uu.id).then(res => {
+                if (!res) {
+                    setKursusHIS([]);
+                } else {
+                    setKursusHIS(res);
+                }
+            })
             axios.post(apiURL + 'kursus_list').then(res => {
 
                 setPilihan(res.data);
@@ -135,7 +161,7 @@ export default function ({ navigation, route }) {
                                 let tmpKursus = [...KursusHIS];
                                 tmpKursus.push(Filtered[0]);
                                 setKursusHIS(tmpKursus);
-                                storeData('kursus', tmpKursus);
+                                storeData('kursus' + user.id, tmpKursus);
 
                             } else {
                                 Alert.alert(MYAPP, 'THE COURSE IS NOT FOUND !')
@@ -254,25 +280,29 @@ export default function ({ navigation, route }) {
                     </View>
 
 
-                    <View style={{
-
-                        marginVertical: 10,
-                        backgroundColor: colors.primary,
-                        padding: 10,
-                        borderRadius: 10,
+                    <TouchableWithoutFeedback onPress={() => {
+                        Alert.alert('Titik Koordinat berhasil di ambil', `${lokasi.lat}, ${lokasi.long}`)
                     }}>
-                        <Text style={{
-                            fontFamily: fonts.secondary[600],
-                            fontSize: 15,
-                            color: colors.white
-                        }}>latitude & longitude </Text>
+                        <View style={{
+                            marginVertical: 10,
+                            backgroundColor: colors.white,
+                            borderWidth: 1,
+                            borderColor: colors.primary,
+                            padding: 10,
+                            borderRadius: 10,
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{
+                                fontFamily: fonts.secondary[600],
+                                fontSize: 14,
+                                color: colors.primary,
+                                flex: 1,
+                            }}>Get Location</Text>
+                            <Icon type='ionicon' name='location' color={colors.primary} size={20} />
+                        </View>
 
-                        <Text style={{
-                            textAlign: 'center',
-                            fontFamily: fonts.secondary[800], fontSize: 14,
-                            color: colors.white
-                        }}> {lokasi.lat}, {lokasi.long}</Text>
-                    </View>
+                    </TouchableWithoutFeedback>
 
 
                     <TouchableNativeFeedback onPress={() => {

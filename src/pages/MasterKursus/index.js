@@ -22,7 +22,7 @@ import DocumentPicker, {
 
 
 import ProgressCircle from 'react-native-progress-circle'
-import { MyButton, MyCalendar, MyGap, MyInput } from '../../components';
+import { MyButton, MyCalendar, MyGap, MyInput, MyPicker } from '../../components';
 import { Modal } from 'react-native';
 
 export default function ({ navigation, route }) {
@@ -31,6 +31,7 @@ export default function ({ navigation, route }) {
         tipe: 'ADD',
         kode_kursus: '',
         nama_kursus: '',
+        fid_kelas: 1,
         tanggal_kursus: moment().format('YYYY-MM-DD'),
         jam_kursus: '',
         jam_selesai: '',
@@ -39,6 +40,7 @@ export default function ({ navigation, route }) {
     const modul = 'kursus';
 
     const [data, setData] = useState([]);
+    const [kelas, setKelas] = useState([]);
 
     useEffect(() => {
         __getTransaction();
@@ -48,6 +50,10 @@ export default function ({ navigation, route }) {
         axios.post(apiURL + modul).then(res => {
             console.log(res.data);
             setData(res.data)
+        });
+
+        axios.post(apiURL + 'kelas_list').then(k => {
+            setKelas(k.data)
         })
     }
 
@@ -83,6 +89,14 @@ export default function ({ navigation, route }) {
                     <Text style={{
                         fontFamily: fonts.secondary[600],
                         fontSize: 12
+                    }}>Class Name</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[400],
+                        fontSize: 12
+                    }}>{item.nama_kelas}</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 12
                     }}>Course Date</Text>
                     <Text style={{
                         fontFamily: fonts.secondary[400],
@@ -113,6 +127,7 @@ export default function ({ navigation, route }) {
                         setKirim({
                             tipe: 'UPDATE',
                             id: item.id,
+                            fid_kelas: item.fid_kelas,
                             kode_kursus: item.kode_kursus,
                             nama_kursus: item.nama_kursus,
                             tanggal_kursus: item.tanggal_kursus,
@@ -190,6 +205,7 @@ export default function ({ navigation, route }) {
                         tipe: 'ADD',
                         kode_kursus: '',
                         nama_kursus: '',
+                        fid_kelas: 1,
                         tanggal_kursus: moment().format('YYYY-MM-DD'),
                         jam_kursus: '',
                         jam_selesai: '',
@@ -222,6 +238,13 @@ export default function ({ navigation, route }) {
                                     nama_kursus: x
                                 })
                             }} value={kirim.nama_kursus} iconname="create" />
+                            <MyGap jarak={10} />
+                            <MyPicker label="Class Name" data={kelas} value={kirim.fid_kelas} onValueChange={x => {
+                                setKirim({
+                                    ...kirim,
+                                    fid_kelas: x
+                                })
+                            }} iconname="create" />
                             <MyGap jarak={10} />
                             <MyCalendar label="Course Date" value={kirim.tanggal_kursus} iconname="create" onDateChange={x => {
                                 setKirim({
