@@ -120,7 +120,7 @@ export default function AccountEdit({ navigation, route }) {
                     })
                 }} iconname="calendar" label="Date" />
                 <MyGap jarak={10} />
-                <MyPicker iconname="male-female" label="Jenis Kelamin" value={kirim.gender} onValueChange={x => {
+                <MyPicker iconname="male-female" label="Jenis Kelamin" value={kirim.jenis_kelamin} onValueChange={x => {
                     setKirim({
                         ...kirim,
                         jenis_kelamin: x
